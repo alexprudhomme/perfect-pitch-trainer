@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:group_button/group_button.dart';
 import '../helpers/sounds.dart';
 
 const List<Widget> notes = <Widget>[
@@ -47,6 +48,9 @@ class _QuizState extends State<Quiz> {
     Source source = AssetSource('sounds/$currentNote');
     player.play(source);
   }
+  void checkAnswer(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,96 @@ class _QuizState extends State<Quiz> {
                             isStart ? 'Start': 'Hear Again'
                           ),
                         ),
-                        ElevatedButton(onPressed: (){}, child: Text('A'))
+                        const SizedBox(height: 50.0,),
+                        Flex(
+                          direction: Axis.horizontal,
+                          children: [
+                            Visibility(
+                              visible: selectedNotes[0] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('A')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[1] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('A#/B\u266D')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[2] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('B')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[3] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('C')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[4] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('C#/D\u266D')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[5] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('D')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[6] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('D#/E\u266D')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[7] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('E')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[8] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('F')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[9] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('F#/G\u266D')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[10] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('G')
+                                )
+                            ),
+                            Visibility(
+                                visible: selectedNotes[11] && !isStart,
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: const Text('G#/A\u266D')
+                                )
+                            ),
+                          ],
+                        )
                       ],
                     ),
                     const SizedBox(width: 80.0,),
