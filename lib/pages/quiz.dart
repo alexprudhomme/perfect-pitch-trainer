@@ -48,22 +48,18 @@ class _QuizState extends State<Quiz> {
     Source source = AssetSource('sounds/$currentNote');
     player.play(source);
   }
-  void checkAnswer(){
-
+  void checkAnswer(String letter){
+    // if note Right :
+    //  make Button green
+    //  playRandomNote
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       body: SafeArea(
         child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/clara.png'),
-                  fit: BoxFit.cover,
-                )
-            ),
             child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -83,94 +79,157 @@ class _QuizState extends State<Quiz> {
                           ),
                         ),
                         const SizedBox(height: 50.0,),
-                        Flex(
-                          direction: Axis.horizontal,
+                        Row(
                           children: [
                             Visibility(
                               visible: selectedNotes[0] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('A');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('A')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[1] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('Bb');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('A#/B\u266D')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[2] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('B');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('B')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[3] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('C');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('C')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[4] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('Db');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('C#/D\u266D')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[5] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('D');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('D')
                                 )
                             ),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             Visibility(
                                 visible: selectedNotes[6] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('Eb');
+                                    },
+                                    style: ButtonStyle(
+                                      fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('D#/E\u266D')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[7] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('E');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('E')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[8] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('F');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('F')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[9] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('Gb');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('F#/G\u266D')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[10] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('G');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('G')
                                 )
                             ),
                             Visibility(
                                 visible: selectedNotes[11] && !isStart,
                                 child: ElevatedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      checkAnswer('Ab');
+                                    },
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                    ),
                                     child: const Text('G#/A\u266D')
                                 )
                             ),
-                          ],
+                          ]
                         )
                       ],
                     ),
@@ -285,7 +344,7 @@ class _QuizState extends State<Quiz> {
                     ),
                   ],
                 )
-            )
+            ),
         ),
       ),
     );
