@@ -26,7 +26,7 @@ class Quiz extends StatefulWidget {
   @override
   State<Quiz> createState() => _QuizState();
 }
-
+// TODO Make buttons unclickable after getting it right OR make loop continue after getting it right (happy indicator when getting it right)
 class _QuizState extends State<Quiz> {
   bool isNoteRight = false;
   final List<bool> selectedNotes = <bool>[false, false, false, true, false, true,
