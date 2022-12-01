@@ -9,13 +9,12 @@ void main() {
   runApp(MaterialApp(
     title: 'Perfect Pitch Trainer',
     theme: ThemeData(
-        colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: true
     ),
     initialRoute: '/',
     routes: {
-      '/': (context) => Loading(),
-      '/quiz' : (context) => Quiz(),
+      '/loading': (context) => Loading(),
+      '/' : (context) => Quiz(),
     },
     ),
   );

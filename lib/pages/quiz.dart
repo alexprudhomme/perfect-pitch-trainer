@@ -27,13 +27,29 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  bool isNoteRight = false;
   final List<bool> selectedNotes = <bool>[false, false, false, true, false, true,
                                           false, true, false, false, false, false];
-  late String currentNote;
+  late String currentNote = '';
   late List<String> selectedPossibleSounds = <String>['C2.mp3', 'C3.mp3', 'C4.mp3',
     'C5.mp3', 'C6.mp3', 'D2.mp3', 'D3.mp3', 'D4.mp3', 'D5.mp3', 'D6.mp3', 'E2.mp3',
     'E3.mp3', 'E4.mp3', 'E5.mp3', 'E6.mp3',];
   bool isStart = true;
+  Color? colorBasic = Colors.grey[200];
+  Color colorWrong = Colors.red;
+  Color colorRight = Colors.green;
+  late Color? colorA = colorBasic;
+  late Color? colorBb= colorBasic;
+  late Color? colorB = colorBasic;
+  late Color? colorC = colorBasic;
+  late Color? colorDb = colorBasic;
+  late Color? colorD = colorBasic;
+  late Color? colorEb = colorBasic;
+  late Color? colorF = colorBasic;
+  late Color? colorGb = colorBasic;
+  late Color? colorG = colorBasic;
+  late Color? colorAb = colorBasic;
+  late Color? colorE = colorBasic;
 
   void playRandomNote(){
     AudioPlayer player=AudioPlayer();
@@ -48,14 +64,39 @@ class _QuizState extends State<Quiz> {
     Source source = AssetSource('sounds/$currentNote');
     player.play(source);
   }
-  void checkAnswer(String letter){
+  bool checkAnswer(String letter){
+    if(letter == 'Bb' || letter == 'Db' || letter == 'Eb' || letter == 'Gb' || letter == 'Ab'){
+      if (currentNote[0] == letter[0] && currentNote[1] == letter[1]){
+        return true;
+      }
+    }else{
+      if(currentNote[0] == letter[0]){
+        return true;
+      }
+    }
+    return false;
     // if note Right :
     //  make Button green
     //  playRandomNote
   }
+  void makeColorNotesBasic(){
+    colorA = colorBasic;
+    colorBb= colorBasic;
+    colorB = colorBasic;
+    colorC = colorBasic;
+    colorDb = colorBasic;
+    colorD = colorBasic;
+    colorEb = colorBasic;
+    colorF = colorBasic;
+    colorGb = colorBasic;
+    colorG = colorBasic;
+    colorAb = colorBasic;
+    colorE = colorBasic;
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(currentNote);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onPrimary,
       body: SafeArea(
@@ -67,6 +108,19 @@ class _QuizState extends State<Quiz> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Visibility(
+                          visible: isNoteRight,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                playRandomNote();
+                                makeColorNotesBasic();
+                                setState(() {
+                                  isNoteRight = false;
+                                });
+                              },
+                              child: Text('Next'),
+                            )
+                        ),
                         ElevatedButton(
                           onPressed: (){
                             isStart ? playRandomNote(): playCurrentNote();
@@ -85,146 +139,276 @@ class _QuizState extends State<Quiz> {
                               visible: selectedNotes[0] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('A');
+                                      if(checkAnswer('A')){
+                                        setState(() {
+                                          colorA = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorA = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                      backgroundColor: MaterialStateProperty.all(colorA)
                                     ),
                                     child: const Text('A')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[1] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('Bb');
+                                      if(checkAnswer('Bb')){
+                                        setState(() {
+                                          colorBb = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState((){
+                                          colorBb = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorBb)
                                     ),
                                     child: const Text('A#/B\u266D')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[2] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('B');
+                                      if(checkAnswer('B')){
+                                        setState(() {
+                                          colorB = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorB = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorB)
                                     ),
                                     child: const Text('B')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[3] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('C');
+                                      if(checkAnswer('C')){
+                                        setState(() {
+                                          colorC = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorC = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorC)
                                     ),
                                     child: const Text('C')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[4] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('Db');
+                                      if(checkAnswer('Db')){
+                                        setState(() {
+                                          colorDb = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorDb = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorDb)
                                     ),
                                     child: const Text('C#/D\u266D')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[5] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('D');
+                                      if(checkAnswer('D')){
+                                        setState(() {
+                                          colorD = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorD = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorD)
                                     ),
                                     child: const Text('D')
                                 )
                             ),
                           ],
-                        ),
+                        ),const SizedBox(height: 5.0,),
                         Row(
                           children: [
                             Visibility(
                                 visible: selectedNotes[6] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('Eb');
+                                      if(checkAnswer('Eb')){
+                                        setState(() {
+                                          colorEb = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorEb = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                      fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                      fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorEb)
                                     ),
                                     child: const Text('D#/E\u266D')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[7] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('E');
+                                      if(checkAnswer('E')){
+                                        setState(() {
+                                          colorE = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorE = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorE)
                                     ),
                                     child: const Text('E')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[8] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('F');
+                                      if(checkAnswer('F')){
+                                        setState(() {
+                                          colorF = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorF = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorF)
                                     ),
                                     child: const Text('F')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[9] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('Gb');
+                                      if(checkAnswer('Gb')){
+                                        setState(() {
+                                          colorGb = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorGb = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorGb)
                                     ),
                                     child: const Text('F#/G\u266D')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[10] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('G');
+                                      if(checkAnswer('G')){
+                                        setState(() {
+                                          colorG = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorG = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorG)
                                     ),
                                     child: const Text('G')
                                 )
                             ),
+                            const SizedBox(width: 5.0,),
                             Visibility(
                                 visible: selectedNotes[11] && !isStart,
                                 child: ElevatedButton(
                                     onPressed: (){
-                                      checkAnswer('Ab');
+                                      if(checkAnswer('Ab')){
+                                        setState(() {
+                                          colorAb = colorRight;
+                                          isNoteRight = true;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          colorAb = colorWrong;
+                                        });
+                                      }
                                     },
                                     style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(const Size(70,40))
+                                        fixedSize: MaterialStateProperty.all(const Size(75,40)),
+                                        backgroundColor: MaterialStateProperty.all(colorAb)
                                     ),
                                     child: const Text('G#/A\u266D')
                                 )
