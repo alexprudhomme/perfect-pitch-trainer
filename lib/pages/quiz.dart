@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../helpers/sounds.dart';
 
 const List<Widget> notes = <Widget>[
@@ -35,6 +36,7 @@ class _QuizState extends State<Quiz> {
     'C5.mp3', 'C6.mp3', 'D2.mp3', 'D3.mp3', 'D4.mp3', 'D5.mp3', 'D6.mp3', 'E2.mp3',
     'E3.mp3', 'E4.mp3', 'E5.mp3', 'E6.mp3',];
   bool isStart = true;
+  bool isGameStart = false;
   Color? colorBasic = Colors.grey[200];
   Color colorWrong = Colors.red;
   Color colorRight = Colors.green;
@@ -50,6 +52,11 @@ class _QuizState extends State<Quiz> {
   late Color? colorG = colorBasic;
   late Color? colorAb = colorBasic;
   late Color? colorE = colorBasic;
+
+  late int progressBarNumerator = 0;
+  late int progressBarDenominator = 0;
+  late double progressBar = progressBarNumerator/progressBarDenominator;
+
 
   void playRandomNote(){
     AudioPlayer player=AudioPlayer();
@@ -75,9 +82,6 @@ class _QuizState extends State<Quiz> {
       }
     }
     return false;
-    // if note Right :
-    //  make Button green
-    //  playRandomNote
   }
   void makeColorNotesBasic(){
     colorA = colorBasic;
@@ -97,6 +101,9 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     print(currentNote);
+    print(progressBarDenominator);
+    print(progressBarNumerator);
+    print(progressBar);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onPrimary,
       body: SafeArea(
@@ -108,6 +115,14 @@ class _QuizState extends State<Quiz> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        CircularPercentIndicator(
+                          radius: 45.0,
+                          lineWidth: 4.0,
+                          percent: isGameStart ? progressBar : 0.0,
+                          center: Text(
+                              isGameStart ? '${progressBar*100}%' : '0.0% '),
+                          progressColor: Colors.yellow,
+                        ),
                         Visibility(
                           visible: isNoteRight,
                             child: ElevatedButton(
@@ -143,10 +158,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorA = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorA = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -166,10 +187,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorBb = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState((){
                                           colorBb = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -189,10 +216,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorB = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorB = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -212,10 +245,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorC = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorC = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -235,10 +274,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorDb = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorDb = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -258,10 +303,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorD = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorD = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -284,10 +335,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorEb = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorEb = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -307,10 +364,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorE = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorE = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -330,10 +393,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorF = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorF = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -353,10 +422,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorGb = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorGb = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -376,10 +451,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorG = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorG = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
@@ -399,10 +480,16 @@ class _QuizState extends State<Quiz> {
                                         setState(() {
                                           colorAb = colorRight;
                                           isNoteRight = true;
+                                          isGameStart = true;
+                                          progressBarNumerator++;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }else{
                                         setState(() {
                                           colorAb = colorWrong;
+                                          progressBarDenominator++;
+                                          progressBar = progressBarNumerator/progressBarDenominator;
                                         });
                                       }
                                     },
