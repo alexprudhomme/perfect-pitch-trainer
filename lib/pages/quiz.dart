@@ -56,6 +56,8 @@ class _QuizState extends State<Quiz> {
   late int progressBarNumerator = 0;
   late int progressBarDenominator = 0;
   late double progressBar = progressBarNumerator/progressBarDenominator;
+  late double progressBarTimes100 = progressBar * 100;
+  late String progressBarRounded = progressBarTimes100.toStringAsFixed(2);
 
 
   void playRandomNote(){
@@ -120,7 +122,7 @@ class _QuizState extends State<Quiz> {
                           lineWidth: 4.0,
                           percent: isGameStart ? progressBar : 0.0,
                           center: Text(
-                              isGameStart ? '${progressBar*100}%' : '0.0% '),
+                              isGameStart ? '$progressBarRounded%' : '0.0% '),
                           progressColor: Colors.yellow,
                         ),
                         Visibility(
@@ -162,12 +164,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorA = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -191,12 +195,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState((){
                                           colorBb = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -220,12 +226,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorB = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -249,12 +257,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorC = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -278,12 +288,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorDb = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -307,12 +319,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorD = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -339,12 +353,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorEb = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -368,12 +384,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorE = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -397,12 +415,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorF = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -426,12 +446,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorGb = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -455,12 +477,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorG = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
@@ -484,12 +508,14 @@ class _QuizState extends State<Quiz> {
                                           progressBarNumerator++;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }else{
                                         setState(() {
                                           colorAb = colorWrong;
                                           progressBarDenominator++;
                                           progressBar = progressBarNumerator/progressBarDenominator;
+                                          progressBarRounded = (progressBar*100).toStringAsFixed(2);
                                         });
                                       }
                                     },
