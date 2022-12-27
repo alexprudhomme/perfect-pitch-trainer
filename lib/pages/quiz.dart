@@ -60,24 +60,31 @@ class _QuizState extends State<Quiz> {
   late String progressBarRounded = progressBarTimes100.toStringAsFixed(2);
 
   void rightAnswer(){
-    if(isCurrentAnswerWrong){
-      isCurrentAnswerWrong = false;
-    }else{
-      progressBarNumerator++;
-      progressBarDenominator++;
-      progressBar = progressBarNumerator/progressBarDenominator;
-      progressBarRounded = (progressBar*100).toStringAsFixed(2);
+    AudioPlayer player=AudioPlayer();
+    Source source = AssetSource('sounds/right.mp3');
+    player.play(source);
+    if(!isNoteRight){
+      if(isCurrentAnswerWrong){
+        isCurrentAnswerWrong = false;
+      }else{
+        progressBarNumerator++;
+        progressBarDenominator++;
+        progressBar = progressBarNumerator/progressBarDenominator;
+        progressBarRounded = (progressBar*100).toStringAsFixed(2);
+      }
+      isNoteRight = true;
+      isGameStart = true;
     }
-    isNoteRight = true;
-    isGameStart = true;
   }
   void wrongAnswer(){
-    isGameStart = true;
-    if (!isCurrentAnswerWrong){
-      progressBarDenominator++;
-      progressBar = progressBarNumerator/progressBarDenominator;
-      progressBarRounded = (progressBar*100).toStringAsFixed(2);
-      isCurrentAnswerWrong = true;
+    if(!isNoteRight){
+      isGameStart = true;
+      if (!isCurrentAnswerWrong){
+        progressBarDenominator++;
+        progressBar = progressBarNumerator/progressBarDenominator;
+        progressBarRounded = (progressBar*100).toStringAsFixed(2);
+        isCurrentAnswerWrong = true;
+      }
     }
   }
   void playRandomNote(){
