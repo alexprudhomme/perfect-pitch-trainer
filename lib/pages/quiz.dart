@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:group_button/group_button.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import '../helpers/sounds.dart';
 
 const List<Widget> notes = <Widget>[
   Text('A'),
@@ -27,9 +25,38 @@ class Quiz extends StatefulWidget {
   State<Quiz> createState() => _QuizState();
 }
 class _QuizState extends State<Quiz> {
+  Map<String, List<String>> all_sounds = {
+    'A': <String>['A2.mp3', 'A3.mp3', 'A4.mp3', 'A5.mp3', 'A6.mp3',],
+    'Bb': <String>['Bb2.mp3', 'Bb3.mp3', 'Bb4.mp3', 'Bb5.mp3', 'Bb6.mp3',],
+    'B': <String>['B2.mp3', 'B3.mp3', 'B4.mp3', 'B5.mp3', 'B6.mp3',],
+    'C': <String>['C2.mp3', 'C3.mp3', 'C4.mp3', 'C5.mp3', 'C6.mp3',],
+    'Db': <String>['Db2.mp3', 'Db3.mp3', 'Db4.mp3', 'Db5.mp3', 'Db6.mp3',],
+    'D': <String>['D2.mp3', 'D3.mp3', 'D4.mp3', 'D5.mp3', 'D6.mp3',],
+    'Eb': <String>['Eb2.mp3', 'Eb3.mp3', 'Eb4.mp3', 'Eb5.mp3', 'Eb6.mp3',],
+    'E': <String>['E2.mp3', 'E3.mp3', 'E4.mp3', 'E5.mp3', 'E6.mp3',],
+    'F': <String>['F2.mp3', 'F3.mp3', 'F4.mp3', 'F5.mp3', 'F6.mp3',],
+    'Gb': <String>['Gb2.mp3', 'Gb3.mp3', 'Gb4.mp3', 'Gb5.mp3', 'Gb6.mp3',],
+    'G': <String>['G2.mp3', 'G3.mp3', 'G4.mp3', 'G5.mp3', 'G6.mp3',],
+    'Ab': <String>['Ab2.mp3', 'Ab3.mp3', 'Ab4.mp3', 'Ab5.mp3', 'Ab6.mp3',],
+  };
+  RangeValues currentRangeValues = RangeValues(2,6);
   bool isNoteRight = false;
   final List<bool> selectedNotes = <bool>[false, false, false, true, false, true,
                                           false, true, false, false, false, false];
+  final Map<int, String> indexToLetter = {
+    0:'A',
+    1:'Bb',
+    2:'B',
+    3:'C',
+    4:'Db',
+    5:'D',
+    6:'Eb',
+    7:'E',
+    8:'F',
+    9:'Gb',
+    10:'G',
+    11:'Ab',
+  };
   late String currentNote = '';
   late List<String> selectedPossibleSounds = <String>['C2.mp3', 'C3.mp3', 'C4.mp3',
     'C5.mp3', 'C6.mp3', 'D2.mp3', 'D3.mp3', 'D4.mp3', 'D5.mp3', 'D6.mp3', 'E2.mp3',
@@ -59,8 +86,24 @@ class _QuizState extends State<Quiz> {
   late double progressBarTimes100 = progressBar * 100;
   late String progressBarRounded = progressBarTimes100.toStringAsFixed(2);
 
+  void updateAllSounds(){
+    for (var key in all_sounds.keys){
+      all_sounds[key]?.clear();
+    }
+    for (int i = currentRangeValues.start as int; i < currentRangeValues.end + 1; i++){
+      for(var key in all_sounds.keys){
+        all_sounds[key]?.add('$key$i.mp3');
+      }
+      selectedPossibleSounds.clear();
+      for (int i = 0; i < selectedNotes.length; i++){
+        if(selectedNotes[i]){
+          selectedPossibleSounds.addAll(all_sounds[indexToLetter[i]]!);
+        }
+      }
+    }
+  }
+  AudioPlayer player = AudioPlayer();
   void rightAnswer(){
-    AudioPlayer player=AudioPlayer();
     Source source = AssetSource('sounds/right.mp3');
     player.setVolume(0.3);
     player.play(source);
@@ -78,8 +121,7 @@ class _QuizState extends State<Quiz> {
     }
   }
   void wrongAnswer(){
-    AudioPlayer player=AudioPlayer();
-    Source source = AssetSource('sounds/wrong.mp3');
+    Source source = AssetSource('sounds/wrong2.mp3');
     player.setVolume(0.3);
     player.play(source);
     if(!isNoteRight){
@@ -93,7 +135,7 @@ class _QuizState extends State<Quiz> {
     }
   }
   void playRandomNote(){
-    AudioPlayer player=AudioPlayer();
+    player.setVolume(1);
     final random = Random();
     String note = selectedPossibleSounds[random.nextInt(selectedPossibleSounds.length)];
     Source source = AssetSource('sounds/$note');
@@ -101,7 +143,7 @@ class _QuizState extends State<Quiz> {
     currentNote = note;
   }
   void playCurrentNote(){
-    AudioPlayer player=AudioPlayer();
+    player.setVolume(1);
     Source source = AssetSource('sounds/$currentNote');
     player.play(source);
   }
@@ -135,9 +177,8 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     print(currentNote);
-    print(progressBarDenominator);
-    print(progressBarNumerator);
-    print(progressBar);
+    print(selectedPossibleSounds);
+    print(all_sounds);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(253, 245, 223, 1),
       body: SafeArea(
@@ -506,113 +547,144 @@ class _QuizState extends State<Quiz> {
                       ],
                     ),
                     const SizedBox(width: 80.0,),
-                    ToggleButtons(
-                      direction: Axis.vertical,
-                      onPressed: (int index) {
-                        // All buttons are selectable.
-                        setState(() {
-                          selectedNotes[index] = !selectedNotes[index];
-                          switch(index){
-                            case 0:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, A_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(A_sounds);
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            'Octaves',
+                          style: TextStyle(
+                              color: Color.fromRGBO(94, 190, 196, 1),
+                              fontSize: 20.0,
+                          ),
+                        ),
+
+                        RangeSlider(
+                          values: currentRangeValues,
+                          onChanged: (RangeValues values) {
+                            setState(() {
+                              currentRangeValues = values;
+                              updateAllSounds();
+                            });
+                          },
+                          activeColor: Color.fromRGBO(94, 190, 196, 1),
+                          max: 7,
+                          divisions: 7,
+                          labels: RangeLabels(
+                            currentRangeValues.start.round().toString(),
+                            currentRangeValues.end.round().toString(),
+                          ),
+                        ),
+                        const SizedBox(height: 35.0,),
+                        ToggleButtons(
+                          direction: Axis.vertical,
+                          onPressed: (int index) {
+                            // All buttons are selectable.
+                            setState(() {
+                              selectedNotes[index] = !selectedNotes[index];
+                              switch(index){
+                                case 0:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['A']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['A']!);
+                                  }
+                                  break;
+                                case 1:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['Bb']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['Bb']!);
+                                  }
+                                  break;
+                                case 2:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['B']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['B']!);
+                                  }
+                                  break;
+                                case 3:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['C']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['C']!);
+                                  }
+                                  break;
+                                case 4:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['Db']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['Db']!);
+                                  }
+                                  break;
+                                case 5:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['D']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['D']!);
+                                  }
+                                  break;
+                                case 6:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['Eb']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['Eb']!);
+                                  }
+                                  break;
+                                case 7:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['E']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['E']!);
+                                  }
+                                  break;
+                                case 8:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['F']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['F']!);
+                                  }
+                                  break;
+                                case 9:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['Gb']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['Gb']!);
+                                  }
+                                  break;
+                                case 10:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['G']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['G']!);
+                                  }
+                                  break;
+                                case 11:
+                                  if(!selectedNotes[index]){
+                                    selectedPossibleSounds = removeSound(selectedPossibleSounds, all_sounds['Ab']!);
+                                  }else{
+                                    selectedPossibleSounds.addAll(all_sounds['Ab']!);
+                                  }
+                                  break;
                               }
-                              break;
-                            case 1:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, Bb_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(Bb_sounds);
-                              }
-                              break;
-                            case 2:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, B_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(B_sounds);
-                              }
-                              break;
-                            case 3:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, C_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(C_sounds);
-                              }
-                              break;
-                            case 4:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, Db_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(Db_sounds);
-                              }
-                              break;
-                            case 5:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, D_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(D_sounds);
-                              }
-                              break;
-                            case 6:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, Eb_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(Eb_sounds);
-                              }
-                              break;
-                            case 7:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, E_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(E_sounds);
-                              }
-                              break;
-                            case 8:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, F_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(F_sounds);
-                              }
-                              break;
-                            case 9:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, Gb_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(Gb_sounds);
-                              }
-                              break;
-                            case 10:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, G_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(G_sounds);
-                              }
-                              break;
-                            case 11:
-                              if(!selectedNotes[index]){
-                                selectedPossibleSounds = removeSound(selectedPossibleSounds, Ab_sounds);
-                              }else{
-                                selectedPossibleSounds.addAll(Ab_sounds);
-                              }
-                              break;
-                          }
-                          print(selectedPossibleSounds);
-                          print(selectedNotes);
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      selectedBorderColor: Color.fromRGBO(94, 190, 196, 1),
-                      selectedColor: Colors.white,
-                      fillColor: Color.fromRGBO(94, 190, 196, 1),
-                      color: Color.fromRGBO(94, 190, 196, 1),
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
-                      ),
-                      isSelected: selectedNotes,
-                      children: notes,
+                              print(selectedPossibleSounds);
+                              print(selectedNotes);
+                            });
+                          },
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          selectedBorderColor: Color.fromRGBO(94, 190, 196, 1),
+                          selectedColor: Colors.white,
+                          fillColor: Color.fromRGBO(94, 190, 196, 1),
+                          color: Color.fromRGBO(94, 190, 196, 1),
+                          constraints: const BoxConstraints(
+                            minHeight: 40.0,
+                            minWidth: 80.0,
+                          ),
+                          isSelected: selectedNotes,
+                          children: notes,
+                        ),
+                      ],
                     ),
                   ],
                 )
