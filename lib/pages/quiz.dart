@@ -38,8 +38,8 @@ class _QuizState extends State<Quiz> {
   bool isGameStart = false;
   bool isCurrentAnswerWrong = false;
   Color? colorBasic = Colors.grey[200];
-  Color colorWrong = Colors.red;
-  Color colorRight = Colors.green;
+  Color? colorWrong = Colors.red[300];
+  Color? colorRight = Colors.green[300];
   late Color? colorA = colorBasic;
   late Color? colorBb= colorBasic;
   late Color? colorB = colorBasic;
@@ -127,7 +127,7 @@ class _QuizState extends State<Quiz> {
     print(progressBarNumerator);
     print(progressBar);
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(175, 221, 213, 1),
+      backgroundColor: const Color.fromRGBO(253, 245, 223, 1),
       body: SafeArea(
         child: Container(
             child: Center(
@@ -138,12 +138,12 @@ class _QuizState extends State<Quiz> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircularPercentIndicator(
-                          radius: 45.0,
-                          lineWidth: 4.0,
+                          radius: 70.0,
+                          lineWidth: 7.0,
                           percent: isGameStart ? progressBar : 0.0,
                           center: Text(
                               isGameStart ? '$progressBarNumerator/$progressBarDenominator' : ''),
-                          progressColor: Colors.yellow,
+                          progressColor: Color.fromRGBO(249, 44, 133, 0.5),
                         ),
                         const SizedBox(height: 50.0,),
                         Visibility(
@@ -156,9 +156,22 @@ class _QuizState extends State<Quiz> {
                                   isNoteRight = false;
                                 });
                               },
-                              child: Text('Next'),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                                      (Set<MaterialState> states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return const Color.fromRGBO(249, 44, 133, 0.8);
+                                    }else if(states.contains(MaterialState.hovered)){
+                                      return const Color.fromRGBO(249, 44, 133, 0.5);
+                                    }
+                                    return const Color.fromRGBO(239, 239, 239, 1); // Use the component's default.
+                                  },
+                                ),
+                              ),
+                              child: const Text('Next',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),),
                             )
                         ),
+                        const SizedBox(height: 10.0,),
                         ElevatedButton(
                           onPressed: (){
                             isStart ? playRandomNote(): playCurrentNote();
@@ -166,11 +179,24 @@ class _QuizState extends State<Quiz> {
                               isStart = false;
                             });
                           },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                                  (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return const Color.fromRGBO(249, 44, 133, 0.8);
+                                }else if(states.contains(MaterialState.hovered)){
+                                  return const Color.fromRGBO(249, 44, 133, 0.5);
+                                }
+                                return const Color.fromRGBO(239, 239, 239, 1); // Use the component's default.
+                              },
+                            ),
+                          ),
                           child: Text(
-                            isStart ? 'Start': 'Hear Again'
+                            isStart ? 'Start': 'Hear Again',
+                            style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),
                           ),
                         ),
-                        const SizedBox(height: 50.0,),
+                        const SizedBox(height: 30.0,),
                         Row(
                           children: [
                             Visibility(
@@ -193,7 +219,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                       backgroundColor: MaterialStateProperty.all(colorA)
                                     ),
-                                    child: const Text('A')
+                                    child: const Text('A',style:  TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -217,7 +243,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorBb)
                                     ),
-                                    child: const Text('A#/B\u266D')
+                                    child: const Text('A#/B\u266D',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -241,7 +267,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorB)
                                     ),
-                                    child: const Text('B')
+                                    child: const Text('B',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -265,7 +291,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorC)
                                     ),
-                                    child: const Text('C')
+                                    child: const Text('C',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -289,7 +315,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorDb)
                                     ),
-                                    child: const Text('C#/D\u266D')
+                                    child: const Text('C#/D\u266D',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -313,7 +339,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorD)
                                     ),
-                                    child: const Text('D')
+                                    child: const Text('D',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                           ],
@@ -340,7 +366,7 @@ class _QuizState extends State<Quiz> {
                                       fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorEb)
                                     ),
-                                    child: const Text('D#/E\u266D')
+                                    child: const Text('D#/E\u266D',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -362,9 +388,9 @@ class _QuizState extends State<Quiz> {
                                     },
                                     style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
-                                        backgroundColor: MaterialStateProperty.all(colorE)
+                                        backgroundColor: MaterialStateProperty.all(colorE),
                                     ),
-                                    child: const Text('E')
+                                    child: const Text('E',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -388,7 +414,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorF)
                                     ),
-                                    child: const Text('F')
+                                    child: const Text('F',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -412,7 +438,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorGb)
                                     ),
-                                    child: const Text('F#/G\u266D')
+                                    child: const Text('F#/G\u266D',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -436,7 +462,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorG)
                                     ),
-                                    child: const Text('G')
+                                    child: const Text('G',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                             const SizedBox(width: 5.0,),
@@ -460,7 +486,7 @@ class _QuizState extends State<Quiz> {
                                         fixedSize: MaterialStateProperty.all(const Size(75,40)),
                                         backgroundColor: MaterialStateProperty.all(colorAb)
                                     ),
-                                    child: const Text('G#/A\u266D')
+                                    child: const Text('G#/A\u266D',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1) ),)
                                 )
                             ),
                           ]
@@ -565,10 +591,10 @@ class _QuizState extends State<Quiz> {
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      selectedBorderColor: Colors.green[700],
+                      selectedBorderColor: Color.fromRGBO(94, 190, 196, 1),
                       selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: Colors.green[400],
+                      fillColor: Color.fromRGBO(94, 190, 196, 1),
+                      color: Color.fromRGBO(94, 190, 196, 1),
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 80.0,
