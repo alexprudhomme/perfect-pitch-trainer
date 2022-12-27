@@ -1,11 +1,14 @@
 # Perfect Pitch Trainer
-<img width="91" alt="image" src="https://user-images.githubusercontent.com/78121423/209412741-1fb3f1bd-751a-40eb-992a-201bae113d29.png">
-
-A game to help users practice and improve their perfect pitch
+<img width="619" alt="image" src="https://user-images.githubusercontent.com/78121423/209725931-161f129e-3c57-44cd-80df-9daf945d25af.png">
+A game to help users practice and improve their perfect pitch. Include features such as choosing octaves to hear notes from, choosing musical notes and testing if the user's guess is right.
 
 ## Built With
 * [![Flutter][Flutter]][Flutter-url]
 
+## Ideas to add
+- Other instruments
+- Way to register scores
+- Button to disable right and wrong sounds
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
