@@ -62,6 +62,7 @@ class _QuizState extends State<Quiz> {
   void rightAnswer(){
     AudioPlayer player=AudioPlayer();
     Source source = AssetSource('sounds/right.mp3');
+    player.setVolume(0.3);
     player.play(source);
     if(!isNoteRight){
       if(isCurrentAnswerWrong){
@@ -77,6 +78,10 @@ class _QuizState extends State<Quiz> {
     }
   }
   void wrongAnswer(){
+    AudioPlayer player=AudioPlayer();
+    Source source = AssetSource('sounds/wrong.mp3');
+    player.setVolume(0.3);
+    player.play(source);
     if(!isNoteRight){
       isGameStart = true;
       if (!isCurrentAnswerWrong){
