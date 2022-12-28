@@ -9,6 +9,7 @@ A game to help users practice and improve their perfect pitch. Include features 
 - Other instruments
 - Way to register scores
 - Button to disable right and wrong sounds
+- Slider for volume
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

@@ -569,7 +569,8 @@ class _QuizState extends State<Quiz> {
                           },
                           activeColor: Color.fromRGBO(94, 190, 196, 1),
                           max: 7,
-                          divisions: 7,
+                          divisions: 6,
+                          min: 1,
                           labels: RangeLabels(
                             currentRangeValues.start.round().toString(),
                             currentRangeValues.end.round().toString(),
